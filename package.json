@@ -15,5 +15,17 @@
   "bugs": {
     "url": "https://github.com/BagrijRoman/mern-simple-social-network/issues"
   },
-  "homepage": "https://github.com/BagrijRoman/mern-simple-social-network#readme"
+  "homepage": "https://github.com/BagrijRoman/mern-simple-social-network#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "jsonwebtoken": "^8.4.0",
+    "mongoose": "^5.3.13",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.6"
+  }
 }
