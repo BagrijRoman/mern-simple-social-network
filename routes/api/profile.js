@@ -26,6 +26,72 @@ router.get(
   }
 );
 
+
+router.get(
+  '/user/:user_id',
+  (req, res) => {
+    const { handle } = req.params;
+    const errors = {};
+
+    Profile.findOne({ user: req.params.user_id })
+      .populate('user', ['name', 'avatar'])
+      .then(profile => {
+        if (!profile) {
+          errors.noProfile = 'There is no profile for this user';
+          res.status(404).json(errors);
+        }
+        res.json(profile);
+      })
+      .catch(err => {
+        errors.profile = 'There is no profile for this user';
+        res.status(404).json(errors)
+      });
+  }
+);
+
+router.get(
+  '/handle/:handle',
+  (req, res) => {
+    const errors = {};
+
+    Profile.findOne({ handle: req.params.handle })
+      .populate('user', ['name', 'avatar'])
+      .then(profile => {
+        if (!profile) {
+          errors.noProfile = 'There is no profile for this user';
+          res.status(404).json(errors);
+        }
+        res.json(profile);
+      })
+      .catch(err => {
+        errors.profile = 'There is no profile for this user';
+        res.status(404).json(errors)
+      });
+  }
+);
+
+router.get(
+  '/all',
+  (req, res) => {
+    const errors = {};
+
+    Profile.find()
+      .populate('user', ['name', 'avatar'])
+      .then(profiles => {
+        if (!profiles) {
+          errors.noProfile = 'There are no profiles';
+          return res.status(404).json(errors);
+        }
+        res.json(profiles);
+      })
+      .catch(err => {
+        errors.profile = 'There is no profiles';
+        res.status(404).json(errors)
+      });
+  }
+);
+
+
 router.post(
   '/',
   passport.authenticate('jwt', { session: false }),
