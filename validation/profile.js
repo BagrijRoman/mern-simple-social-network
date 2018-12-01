@@ -2,7 +2,7 @@ const Validator = require('validator');
 const isEmpty = require('./isEmpty');
 
 module.exports = validateProfileInput = (data) => {
-  const handle = !isEmpty(data.handle) ? handle.email : '';
+  const handle = !isEmpty(data.handle) ? data.handle : '';
   const status = !isEmpty(data.status) ? data.status : '';
   const skills = !isEmpty(data.skills) ? data.skills : '';
   const {
@@ -33,37 +33,37 @@ module.exports = validateProfileInput = (data) => {
   }
 
   if (!isEmpty(website)) {
-    if (!Validator.isUrl(website)) {
+    if (!Validator.isURL(website)) {
       errors.website = 'Not a valid URL';
     }
   }
 
   if (!isEmpty(youtube)) {
-    if (!Validator.isUrl(youtube)) {
+    if (!Validator.isURL(youtube)) {
       errors.youtube = 'Not a valid URL';
     }
   }
 
   if (!isEmpty(twitter)) {
-    if (!Validator.isUrl(twitter)) {
+    if (!Validator.isURL(twitter)) {
       errors.twitter = 'Not a valid URL';
     }
   }
 
   if (!isEmpty(facebook)) {
-    if (!Validator.isUrl(facebook)) {
+    if (!Validator.isURL(facebook)) {
       errors.facebook = 'Not a valid URL';
     }
   }
 
   if (!isEmpty(linkedin)) {
-    if (!Validator.isUrl(linkedin)) {
+    if (!Validator.isURL(linkedin)) {
       errors.linkedin = 'Not a valid URL';
     }
   }
 
   if (!isEmpty(instagram)) {
-    if (!Validator.isUrl(instagram)) {
+    if (!Validator.isURL(instagram)) {
       errors.instagram = 'Not a valid URL';
     }
   }
