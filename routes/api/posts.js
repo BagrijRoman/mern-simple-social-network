@@ -74,4 +74,30 @@ router.delete(
   }
 );
 
+router.post(
+  '/like/:post_id',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    const {
+      user: { id: userId },
+      params: { post_id: postId }
+    } = req;
+
+    Profile.findOne({ user: userId })
+      .then(profile => {
+        Post.findById(postId)
+          .then(post => {
+            if (post.likes.filter(({ user }) => user.toString() === userId).length) {
+              return res.status(400).json({ alreadyLiked: 'User already liked this post' });
+            }
+
+            post.likes.unshift({ user: userId });
+            post.save().then(post => res.json(post));
+          })
+          .catch(err => res.status(404).json({ postNotFound: 'No post found' }));
+      })
+      .catch(err => res.status(404).json({ profileNotFound: 'No profile found' }));
+  }
+);
+
 module.exports = router;
