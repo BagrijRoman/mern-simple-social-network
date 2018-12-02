@@ -4,6 +4,7 @@ const passport = require('passport');
 const Profile = require('../../models/Profile');
 const validateProfileInput = require('../../validation/profile');
 const validateExperienceInput = require('../../validation/experience');
+const validateEducationInput = require('../../validation/education');
 
 const router = express.Router();
 
@@ -176,7 +177,7 @@ router.post(
       return res.status(400).json(errors);
     }
     
-    Profile.findOne({ user: req.user.id })
+    Profile.findOne({ user: id })
       .then(profile => {
         const newExp = {
           title,
@@ -194,9 +195,48 @@ router.post(
           .then(profile => res.json(profile))
           .catch(err => res.json({ err }));
       });
-
   }
+);
 
+router.post(
+  '/education',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    const { user: { id }, body } = req;
+    const {
+      school,
+      degree,
+      fieldOfStudy,
+      from,
+      to,
+      current,
+      description,
+    } = body;
+    const { errors, isValid } = validateEducationInput(body);
+
+    if (!isValid) {
+      return res.status(400).json(errors);
+    }
+
+    Profile.findOne({ user: id })
+      .then(profile => {
+        const newEdu = {
+          school,
+          degree,
+          fieldOfStudy,
+          from,
+          to,
+          current,
+          description,
+        };
+
+        profile.education.unshift(newEdu);
+        profile
+          .save()
+          .then(profile => res.json(profile))
+          .catch(err => res.json({ err }));
+      });
+  }
 );
 
 
