@@ -28,5 +28,22 @@ router.post(
   },
 );
 
+router.get('/', (req, res) => {
+  Post.find()
+    .sort({ date: -1 })
+    .then(posts => res.json(posts))
+    .catch(err => res.status(404).json({ noPostsFound: 'No posts found' }));
+});
+
+router.get('/:post_id', (req, res) => {
+  const { post_id } = req.params;
+
+  Post.findById(post_id)
+    .then(post => res.json(post))
+    .catch(err => {
+      res.status(404).json({ noPostFound: `No post found with id ${post_id}` })
+    });
+});
+
 
 module.exports = router;
