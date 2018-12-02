@@ -279,7 +279,7 @@ router.delete(
     } = req;
 
     Profile.findOne({ user: id })
-      .then(profile => { ''
+      .then(profile => {
         const removeIndex = profile.education
           .map(({ id }) => id)
           .indexOf(edu_id);
