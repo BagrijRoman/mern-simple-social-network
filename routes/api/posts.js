@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const Post = require('../../models/Post');
+const Profile = require('../../models/Profile');
 const validatePostInput = require('../../validation/post');
 
 const router = express.Router();
@@ -10,8 +11,9 @@ router.post(
   '/',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    const { text, name, avatar, id } = req.body;
-    const { errors, isValid } = validatePostInput(req.body);
+    const { body, user: { id } } = req;
+    const { text, name, avatar } = body;
+    const { errors, isValid } = validatePostInput(body);
 
     if (!isValid) {
       return res.status(400).json(errors);
@@ -45,5 +47,31 @@ router.get('/:post_id', (req, res) => {
     });
 });
 
+router.delete(
+  '/:post_id',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    const {
+      user: { id: userId },
+      params: { post_id: postId }
+    } = req;
+
+    Profile.findOne({ user: userId })
+      .then(profile => {
+        Post.findById(postId)
+          .then(post => {
+            if (post.user.toString() !== userId) {
+              return res.status(401).json({ notAuthorized: 'User not authorized' })
+            }
+
+            post.remove()
+              .then(() => res.json({ success: true }))
+              .catch(err => res.status(404).json({ post: 'Remove post error', err }));
+          })
+          .catch(err => res.status(404).json({ postNotFound: 'No post found' }));
+      })
+      .catch(err => res.status(404).json({ profileNotFound: 'No profile found' }));
+  }
+);
 
 module.exports = router;
