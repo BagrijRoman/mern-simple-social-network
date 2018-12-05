@@ -8,25 +8,22 @@ class Login extends Component {
       password: '',
       errors: {}
     };
-
-    this.onChange = this.onChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
   }
 
-  onSubmit(e) {
+  onSubmit = (e) => {
     e.preventDefault();
     const { email, password } = this.state;
-
     const user = { email, password };
 
     console.log(user);
-  }
+  };
 
-  onChange({ target: { name, value } }) {
-    this.setState({ [name]: value });
-  }
+  onChange = ({ target: { name, value } }) => this.setState({ [name]: value });
 
   render() {
+    const { onChange, onSubmit, state } = this;
+    const { email, password } = state;
+
     return (
       <div className="login">
         <div className="container">
@@ -36,15 +33,15 @@ class Login extends Component {
               <p className="lead text-center">
                 Sign in to your DevConnector account
               </p>
-              <form onSubmit={this.onSubmit}>
+              <form onSubmit={onSubmit}>
                 <div className="form-group">
                   <input
                     type="email"
                     className="form-control form-control-lg"
                     placeholder="Email Address"
                     name="email"
-                    value={this.state.email}
-                    onChange={this.onChange}
+                    value={email}
+                    onChange={onChange}
                   />
                 </div>
                 <div className="form-group">
@@ -53,8 +50,8 @@ class Login extends Component {
                     className="form-control form-control-lg"
                     placeholder="Password"
                     name="password"
-                    value={this.state.password}
-                    onChange={this.onChange}
+                    value={password}
+                    onChange={onChange}
                   />
                 </div>
                 <input type="submit" className="btn btn-info btn-block mt-4" />
