@@ -11,3 +11,17 @@ export const registerUser = (userData, history) => dispatch => {
         payload: err.response.data
       }));
 };
+
+export const loginUser = (userData, history) => dispatch => {
+  axios.post('http://localhost:5000/api/users/login', userData)
+    .then(res => {
+      const { token } = res.data;
+      locals
+
+    })
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      }));
+};
