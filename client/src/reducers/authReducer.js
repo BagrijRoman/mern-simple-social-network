@@ -13,7 +13,7 @@ export default function (state = initialState, action) {
     case SET_CURRENT_USER:
       return {
         ...state,
-        isAuthenticated: !isEmpty(payload),
+        isAuthenticated: !!payload,
         user: payload,
       };
 
