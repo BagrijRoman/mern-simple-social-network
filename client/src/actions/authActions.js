@@ -16,8 +16,8 @@ export const loginUser = (userData, history) => dispatch => {
   axios.post('http://localhost:5000/api/users/login', userData)
     .then(res => {
       const { token } = res.data;
-      locals
-
+      localStorage.setItem('jwtToken', token);
+      setAuthToken(token);
     })
     .catch(err =>
       dispatch({
