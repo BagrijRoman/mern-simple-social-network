@@ -7,3 +7,4 @@ to do
 - Client unify function to make actions errors handling
 - Client create separate tool to set/reset/remove localstorage token
 - Client routes should be stored in constants
+- Client add linter
