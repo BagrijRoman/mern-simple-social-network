@@ -23,7 +23,7 @@ if (token) {
   dispatch(setCurrentUser(decoded));
   if (decoded.exp < Date.now / 1000) {
     dispatch(logoutUser());
-    window.location.href = 'login';
+    window.location.href = '/login';
   }
 }
 
