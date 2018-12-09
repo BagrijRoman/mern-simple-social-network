@@ -8,3 +8,4 @@ to do
 - Client create separate tool to set/reset/remove localstorage token
 - Client routes should be stored in constants
 - Client add linter
+- Client add util to store and reset localstorage token value

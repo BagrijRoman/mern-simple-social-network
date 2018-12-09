@@ -4,6 +4,7 @@ import {
   GET_PROFILE,
   PROFILE_LOADING,
   GET_ERRORS,
+  CLEAR_CURRENT_PROFILE,
 } from './types';
 
 export const getCurrentProfile = () => dispatch => {
@@ -20,3 +21,5 @@ export const getCurrentProfile = () => dispatch => {
 };
 
 export const setProfileLoading = () => ({ type: PROFILE_LOADING });
+
+export const clearCurrentProfile = () => ({ type: CLEAR_CURRENT_PROFILE });

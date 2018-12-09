@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { logoutUser } from '../../actions/authActions';
+import { clearCurrentProfile } from '../../actions/profileActions';
 
 const avatarStyles = {
   width: '25px',
@@ -14,7 +15,9 @@ const avatarStyles = {
 class Navbar extends Component {
   onLogoutClick = (e) => {
     e.preventDefault();
-    this.props.logoutUser();
+    const { clearCurrentProfile, logoutUser  } = this.props;
+    logoutUser();
+    clearCurrentProfile();
   };
 
   render() {
@@ -88,9 +91,10 @@ class Navbar extends Component {
 
 Navbar.propTypes = {
   logoutUser: PropTypes.func.isRequired,
+  clearCurrentProfile: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = ({ auth }) => ({ auth });
 
-export default connect(mapStateToProps, { logoutUser })(Navbar);
+export default connect(mapStateToProps, { logoutUser, clearCurrentProfile })(Navbar);
