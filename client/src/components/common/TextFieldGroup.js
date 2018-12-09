@@ -11,25 +11,20 @@ const TextFieldGroup = ({
   type,
   onChange,
   disabled,
-}) => {
-
-
-  return (
-    <div className="form-group">
-      <input {...{
-        type,
-        placeholder,
-        name,
-        onChange,
-        value,
-        disabled,
-        className: classnames('form-control form-control-lg', { 'is-invalid': error })
-      }}/>
-      {info ? <small className="form-text text-muted">{info}</small> : null}
-      {error ? <div className="invalid-feedback">{error}</div> : null}
-    </div>
-  );
-};
+}) =>
+  <div className="form-group">
+    <input {...{
+      type,
+      placeholder,
+      name,
+      onChange,
+      value,
+      disabled,
+      className: classnames('form-control form-control-lg', { 'is-invalid': error })
+    }}/>
+    {info ? <small className="form-text text-muted">{info}</small> : null}
+    {error ? <div className="invalid-feedback">{error}</div> : null}
+  </div>;
 
 TextFieldGroup.propTypes = {
   name: PropTypes.string.isRequired,
