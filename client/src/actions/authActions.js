@@ -30,4 +30,10 @@ export const loginUser = (userData, history) => dispatch => {
       }));
 };
 
-export const setCurrentUser = payload => dispatch => dispatch({ type: SET_CURRENT_USER, payload });
+export const setCurrentUser = payload => ({ type: SET_CURRENT_USER, payload });
+
+export const logoutUser = () => dispatch => {
+  localStorage.removeItem('kwtToken');
+  setAuthToken(false);
+  dispatch(setCurrentUser({}));
+};

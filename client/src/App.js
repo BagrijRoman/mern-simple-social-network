@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import jwtDecode from 'jwt-decode';
 
 import setAuthToken from './utils/setAuthToken';
-import { setCurrentUser } from './actions/authActions';
+import { logoutUser, setCurrentUser } from './actions/authActions';
 import store from './store';
 import Navbar from './components/layout/Navbar';
 import Landing from './components/layout/Landing';
@@ -17,8 +17,14 @@ import './App.css';
 const token = localStorage.jwtToken;
 
 if (token) {
+  const { dispatch } = store;
+  const decoded = jwtDecode(token);
   setAuthToken(token);
-  store.dispatch(setCurrentUser(jwtDecode(token)));
+  dispatch(setCurrentUser(decoded));
+  if (decoded.exp < Date.now / 1000) {
+    dispatch(logoutUser());
+    window.location.href = 'login';
+  }
 }
 
 class App extends Component {
