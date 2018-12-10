@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 const SelectListGroup = ({
-                              name,
-                              value,
-                              error,
-                              info,
-                              onChange,
-                              options,
-                            }) =>
+  name,
+  value,
+  error,
+  info,
+  onChange,
+  options,
+}) =>
   <div className="form-group">
     <select {...{
       name,
@@ -32,10 +32,6 @@ SelectListGroup.propTypes = {
   info: PropTypes.string,
   error: PropTypes.string,
   options: PropTypes.array.isRequired,
-};
-
-SelectListGroup.defaultProps = {
-  type: 'text',
 };
 
 export default SelectListGroup;
