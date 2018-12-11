@@ -233,7 +233,7 @@ class CreateProfile extends Component {
                   info: 'Tell us a little about yourself',
                 }}/>
                 <div className="mb-3">
-                  <button className="btn btn-light" onClick={onAddSocialNetworkClick}>
+                  <button className="btn btn-light" type="button" onClick={onAddSocialNetworkClick}>
                     {`${displaySocialInputs ? 'Hide' : 'Display'} Social Network Links`}
                   </button>
                   <span className="text-muted ml-3">Optional</span>
