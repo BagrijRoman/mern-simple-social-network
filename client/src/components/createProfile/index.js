@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom'
 
 import TextFieldGroup from '../common/TextFieldGroup';
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
 import InputGroup from '../common/InputGroup';
 import SelectListGroup from '../common/SelectListGroup';
 import { statusSelectOptions } from './const';
+import { createProfile } from '../../actions/profileActions';
 
 class CreateProfile extends Component {
   constructor(props) {
@@ -30,10 +32,47 @@ class CreateProfile extends Component {
     };
   }
 
+  componentWillReceiveProps({ errors }) {
+    this.setState({ errors });
+  }
+
   onSubmit = (e) => {
     e.preventDefault();
+    const { createProfile, history } = this.props;
 
-    console.log('onSubmit');
+    const {
+      handle,
+      company,
+      website,
+      location,
+      status,
+      skills,
+      githubUserName,
+      bio,
+      twitter,
+      facebook,
+      linkedin,
+      youtube,
+      instagram,
+    } = this.state;
+
+    const profileData = {
+      handle,
+      company,
+      website,
+      location,
+      status,
+      skills,
+      githubUserName,
+      bio,
+      twitter,
+      facebook,
+      linkedin,
+      youtube,
+      instagram,
+    };
+
+    createProfile(profileData, history);
   };
 
   onChange = ({ target: { name, value } }) => this.setState({ [name]: value });
@@ -213,8 +252,9 @@ class CreateProfile extends Component {
 CreateProfile.propTypes = {
   profile: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired,
+  createProfile: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({ profile, errors }) => ({ profile, errors });
 
-export default connect(mapStateToProps, null)(CreateProfile);
+export default connect(mapStateToProps, { createProfile })(withRouter(CreateProfile));

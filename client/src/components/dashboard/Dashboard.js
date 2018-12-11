@@ -7,12 +7,14 @@ import { getCurrentProfile } from '../../actions/profileActions';
 import Spinner from '../common/Spinner';
 
 class Dashboard extends Component {
-
   componentDidMount() {
     this.props.getCurrentProfile();
   }
 
   render() {
+
+    console.log('dashboard render');
+
     const {
       auth: { user: { name } },
       profile: { profile, loading },
