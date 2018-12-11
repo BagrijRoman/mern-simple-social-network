@@ -10,3 +10,4 @@ to do
 - Client add linter
 - Client add util to store and reset localstorage token value
 - Client refactor dashboard page
+- Client add i18n and second language
