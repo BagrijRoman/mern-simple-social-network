@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import jwtDecode from 'jwt-decode';
 
@@ -43,8 +43,10 @@ class App extends Component {
             <div className="container">
               <Route exact path="/register" component={Register} />
               <Route exact path="/login" component={Login} />
-              <PrivateRoute exact path="/dashboard" component={Dashboard} />
-              <PrivateRoute exact path="/create-profile" component={CreateProfile} />
+              <Switch>
+                <PrivateRoute exact path="/dashboard" component={Dashboard} />
+                <PrivateRoute exact path="/create-profile" component={CreateProfile} />
+              </Switch>
             </div>
             <Footer/>
           </div>
