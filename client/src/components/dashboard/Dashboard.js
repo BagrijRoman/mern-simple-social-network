@@ -3,8 +3,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+import ProfileActions from './ProfileActions';
 import { getCurrentProfile } from '../../actions/profileActions';
 import Spinner from '../common/Spinner';
+
 
 class Dashboard extends Component {
   componentDidMount() {
@@ -24,6 +26,7 @@ class Dashboard extends Component {
         <p className="lead text-muted" >
           Welcome <Link to={`/profile/${handle}`}>{name}</Link>
         </p>
+        <ProfileActions />
       </div>
     );
   };
