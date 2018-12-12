@@ -11,7 +11,22 @@ class Dashboard extends Component {
     this.props.getCurrentProfile();
   }
 
-  renderDashboardContent = () => <h3>Some dashboard content</h3>;
+  renderDashboardContent = () => {
+    const {
+      profile: {
+        handle,
+        user: { name },
+      },
+    } = this.props.profile;
+
+    return(
+      <div>
+        <p className="lead text-muted" >
+          Welcome <Link to={`/profile/${handle}`}>{name}</Link>
+        </p>
+      </div>
+    );
+  };
 
   renderEmptyProfileContent = () =>
     <div>
