@@ -11,3 +11,4 @@ to do
 - Client add util to store and reset localstorage token value
 - Client refactor dashboard page
 - Client add i18n and second language
+- Client bind footer to bottom of page
