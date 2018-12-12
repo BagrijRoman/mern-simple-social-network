@@ -11,6 +11,9 @@ const avatarStyles = {
   marginRight: '5px',
 };
 
+const logoutContainerStyles = {
+  cursor: 'pointer',
+};
 
 class Navbar extends Component {
   onLogoutClick = (e) => {
@@ -26,7 +29,7 @@ class Navbar extends Component {
     const authLinks = (
       <ul className="navbar-nav ml-auto">
         <li className="nav-item">
-          <a href='' onClick={this.onLogoutClick} className="nav-link">
+          <span href='' onClick={this.onLogoutClick} style={logoutContainerStyles} className="nav-link">
             <img
               src={avatar}
               alt={name}
@@ -36,7 +39,7 @@ class Navbar extends Component {
             />
             {'  '}
             Logout
-          </a>
+          </span>
         </li>
       </ul>);
 
