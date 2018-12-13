@@ -15,3 +15,4 @@ to do
 - Client use sweetalert instead window methods
 - Client write client side error handler or request util with error handler
 - Client add alerts after creating/saving edited profile
+- Client Moving errors object from redux state to component state looks starnge   Get rid of it
