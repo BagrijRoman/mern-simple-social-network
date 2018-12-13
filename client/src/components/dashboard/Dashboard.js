@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import ProfileActions from './ProfileActions';
-import { getCurrentProfile } from '../../actions/profileActions';
+import { getCurrentProfile, deleteAccount } from '../../actions/profileActions';
 import Spinner from '../common/Spinner';
 
 
@@ -13,13 +13,15 @@ class Dashboard extends Component {
     this.props.getCurrentProfile();
   }
 
+  onDeleteAccount = () => {
+    if (window.confirm('Are you sure? This can not be undone!')) {
+      this.props.deleteAccount();
+    }
+  };
+
   renderDashboardContent = () => {
-    const {
-      profile: {
-        handle,
-        user: { name },
-      },
-    } = this.props.profile;
+    const { props, onDeleteAccount } = this;
+    const { profile: { handle, user: { name } } } = props.profile;
 
     return(
       <div>
@@ -27,6 +29,8 @@ class Dashboard extends Component {
           Welcome <Link to={`/profile/${handle}`}>{name}</Link>
         </p>
         <ProfileActions />
+        <div style={{ marginBottom: '60px' }} />
+        <button onClick={onDeleteAccount} className="btn btn-danger">Delete My Account</button>
       </div>
     );
   };
@@ -60,10 +64,11 @@ class Dashboard extends Component {
 
 Dashboard.propTypes = {
   getCurrentProfile: PropTypes.func.isRequired,
+  deleteAccount: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = ({ profile, auth }) => ({ profile, auth });
 
-export default connect(mapStateToProps, { getCurrentProfile })(Dashboard);
+export default connect(mapStateToProps, { getCurrentProfile, deleteAccount })(Dashboard);
