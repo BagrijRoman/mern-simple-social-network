@@ -23,11 +23,17 @@ class Navbar extends Component {
     clearCurrentProfile();
   };
 
-  render() {
-    const { isAuthenticated, user: { avatar, name } } = this.props.auth;
+  getAuthLinks = () => {
+    const { user: { avatar, name } } = this.props.auth;
 
-    const authLinks = (
+    return (
       <ul className="navbar-nav ml-auto">
+        <li className="nav-item">
+          <Link className="nav-link" to="/dashboard">
+            Dashboard
+          </Link>
+        </li>
+
         <li className="nav-item">
           <span href='' onClick={this.onLogoutClick} style={logoutContainerStyles} className="nav-link">
             <img
@@ -41,22 +47,26 @@ class Navbar extends Component {
             Logout
           </span>
         </li>
-      </ul>);
+      </ul>
+    );
+  };
 
-    const guestLinks = (
-      <ul className="navbar-nav ml-auto">
-        <li className="nav-item">
-          <Link className="nav-link" to="/register">
-            Sign Up
-          </Link>
-        </li>
-        <li className="nav-item">
-          <Link className="nav-link" to="/login">
-            Login
-          </Link>
-        </li>
-      </ul>);
+  getGuestLinks = () => <ul className="navbar-nav ml-auto">
+    <li className="nav-item">
+      <Link className="nav-link" to="/register">
+        Sign Up
+      </Link>
+    </li>
+    <li className="nav-item">
+      <Link className="nav-link" to="/login">
+        Login
+      </Link>
+    </li>
+  </ul>;
 
+  render() {
+    const { props, getAuthLinks, getGuestLinks } = this;
+    const { isAuthenticated } = props.auth;
 
     return (
       <nav className="navbar navbar-expand-sm navbar-dark bg-dark mb-4">
@@ -82,9 +92,7 @@ class Navbar extends Component {
                 </Link>
               </li>
             </ul>
-
-            {isAuthenticated ? authLinks : guestLinks}
-
+            { isAuthenticated ? getAuthLinks() : getGuestLinks() }
           </div>
         </div>
       </nav>

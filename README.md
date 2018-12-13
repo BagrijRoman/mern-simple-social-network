@@ -14,3 +14,4 @@ to do
 - Client bind footer to bottom of page
 - Client use sweetalert instead window methods
 - Client write client side error handler or request util with error handler
+- Client add alerts after creating/saving edited profile
