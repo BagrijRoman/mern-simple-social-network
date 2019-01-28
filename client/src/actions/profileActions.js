@@ -34,21 +34,25 @@ export const setProfileLoading = () => ({ type: PROFILE_LOADING });
 
 export const clearCurrentProfile = () => ({ type: CLEAR_CURRENT_PROFILE });
 
-export const deleteAccount = () => dispatch => {
-  if (window.confirm('Are you sure? this action can not be undone!')) {
-    axios
-      .delete('http://localhost:5000/api/profile')
-      .then(res =>
-        dispatch({
-          type: SET_CURRENT_USER,
-          payload: {},
-        })
-      ).catch(err =>
-        dispatch({
-          type: GET_ERRORS,
-          payload: err.response.data,
-        })
-      )
-  }
+export const addExperience = (expData, history) => dispatch => {
+  axios.post('http://localhost:5000/api/profile/experience', expData)
+    .then(res => history.push('/dashboard'))
+    .catch(err => dispatch({
+      type: GET_ERRORS,
+      payload: err.response.data,
+    }));
+};
 
+export const deleteAccount = () => dispatch => {
+  axios.delete('http://localhost:5000/api/profile')
+    .then(res => {
+      dispatch({
+        type: SET_CURRENT_USER,
+        payload: {},
+      });
+    })
+    .catch(err => dispatch({
+      type: GET_ERRORS,
+      payload: err.response.data,
+    }));
 };

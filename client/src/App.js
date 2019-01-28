@@ -9,12 +9,16 @@ import { clearCurrentProfile } from './actions/profileActions';
 import store from './store';
 import Navbar from './components/layout/Navbar';
 import Landing from './components/layout/Landing';
+import PrivateRoute from './components/common/PrivateRoute';
 import Footer from './components/layout/Footer';
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import Dashboard from './components/dashboard/Dashboard';
-import CreateProfile from './components/createProfile';
-import PrivateRoute from './components/common/PrivateRoute';
+import CreateProfile from './components/createProfile/CreateProfile';
+import EditProfile from './components/editProfile/EditProfile';
+import AddExperience from './components/addCredentials/AddExperience';
+import AddEducation from './components/addCredentials/AddEducation';
+
 
 import './App.css';
 
@@ -46,6 +50,9 @@ class App extends Component {
               <Switch>
                 <PrivateRoute exact path="/dashboard" component={Dashboard} />
                 <PrivateRoute exact path="/create-profile" component={CreateProfile} />
+                <PrivateRoute exact path="/edit-profile" component={EditProfile} />
+                <PrivateRoute exact path="/add-experience" component={AddExperience} />
+                <PrivateRoute exact path="/add-education" component={AddEducation} />
               </Switch>
             </div>
             <Footer/>

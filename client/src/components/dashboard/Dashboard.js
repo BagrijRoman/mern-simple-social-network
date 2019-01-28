@@ -3,54 +3,50 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+
 import { getCurrentProfile, deleteAccount } from '../../actions/profileActions';
 import ProfileActions from './ProfileActions';
 import Spinner from '../common/Spinner';
+
 
 class Dashboard extends Component {
   componentDidMount() {
     this.props.getCurrentProfile();
   }
 
-  onDeleteClick = () => this.props.deleteAccount();
+  onDeleteAccount = () => {
+    if (window.confirm('Are you sure? This can not be undone!')) {
+      this.props.deleteAccount();
+    }
+  };
+
+  renderDashboardContent = () => {
+    const { props, onDeleteAccount } = this;
+    const { profile: { handle, user: { name } } } = props.profile;
+
+    return(
+      <div>
+        <p className="lead text-muted" >
+          Welcome <Link to={`/profile/${handle}`}>{name}</Link>
+        </p>
+        <ProfileActions />
+        <div style={{ marginBottom: '60px' }} />
+        <button onClick={onDeleteAccount} className="btn btn-danger">Delete My Account</button>
+      </div>
+    );
+  };
+
+  renderEmptyProfileContent = () =>
+    <div>
+      <p className="lead text-muted">Welcome { this.props.name }</p>
+      <p>You have not yes setup profile, please add some info</p>
+      <Link to="/create-profile" className="btn btn-lg btn-info">Create profile</Link>
+    </div>;
 
   render() {
-    const {
-      auth: { user: { name } },
-      profile: {
-        profile,
-        loading,
-      },
-    } = this.props;
+    const { renderEmptyProfileContent, renderDashboardContent, props } = this;
+    const { profile: { profile, loading } } = props;
 
-    let dashboardContent;
-
-    // todo  refactor this
-    if(profile === null || loading) {
-      dashboardContent = <Spinner/>;
-    } else {
-      if (Object.keys(profile).length > 0) {
-        dashboardContent = (
-          <div>
-            <p className="lead text-muted">
-              Welcome <Link to={`/profile/${profile.handle}`} >{ name }</Link>
-            </p>
-            <ProfileActions />
-            <div style={{ marginBottom: '60px' }} >
-              <button onClick={this.onDeleteClick} className="btn btn-danger">Delete My Account</button>
-            </div>
-          </div>
-        );
-      } else {
-        dashboardContent = (
-          <div>
-            <p className="lead text-muted">Welcome { name }</p>
-            <p>You have not yes setup profile, please add some info</p>
-            <Link to="/create-profile" className="btn btn-lg btn-info">Create profile</Link>
-          </div>
-        );
-      }
-    }
 
     return(
       <div className="dashboard">
@@ -58,13 +54,13 @@ class Dashboard extends Component {
           <div className="row">
             <div className="col-md-12">
               <h1 className="dispaly-4">Dashboard</h1>
-              {dashboardContent}
+              {profile === null || loading ? <Spinner/> :
+                Object.keys(profile).length > 0 ? renderDashboardContent() : renderEmptyProfileContent()}
             </div>
           </div>
         </div>
       </div>
     );
-
   }
 }
 

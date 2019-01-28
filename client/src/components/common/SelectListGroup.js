@@ -34,4 +34,8 @@ SelectListGroup.propTypes = {
   options: PropTypes.array.isRequired,
 };
 
+SelectListGroup.defaultProps = {
+  value: '',
+};
+
 export default SelectListGroup;

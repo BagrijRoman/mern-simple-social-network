@@ -11,3 +11,8 @@ to do
 - Client add util to store and reset localstorage token value
 - Client refactor dashboard page
 - Client add i18n and second language
+- Client bind footer to bottom of page
+- Client use sweetalert instead window methods
+- Client write client side error handler or request util with error handler
+- Client add alerts after creating/saving edited profile
+- Client Moving errors object from redux state to component state looks starnge   Get rid of it
