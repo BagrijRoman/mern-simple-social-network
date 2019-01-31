@@ -65,3 +65,14 @@ export const deleteAccount = () => dispatch => {
       payload: err.response.data,
     }));
 };
+
+export const deleteExperience = (id, history) => dispatch => {
+  axios
+    .delete(`http://localhost:5000/api/profile/experience/${id}`)
+    .then(res =>
+      dispatch({
+        type: GET_PROFILE,
+        payload: res.data,
+      })
+    );
+};

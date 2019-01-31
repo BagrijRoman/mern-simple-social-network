@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-
 import { getCurrentProfile, deleteAccount } from '../../actions/profileActions';
 import ProfileActions from './ProfileActions';
+import Experience from './Experience';
 import Spinner from '../common/Spinner';
 
 
@@ -20,7 +20,7 @@ class Dashboard extends Component {
     }
   };
 
-  renderDashboardContent = () => {
+  renderDashboardContent = ({ experience }) => {
     const { props, onDeleteAccount } = this;
     const { profile: { handle, user: { name } } } = props.profile;
 
@@ -30,6 +30,7 @@ class Dashboard extends Component {
           Welcome <Link to={`/profile/${handle}`}>{name}</Link>
         </p>
         <ProfileActions />
+        <Experience {...{ experience }}/>
         <div style={{ marginBottom: '60px' }} />
         <button onClick={onDeleteAccount} className="btn btn-danger">Delete My Account</button>
       </div>
@@ -54,8 +55,11 @@ class Dashboard extends Component {
           <div className="row">
             <div className="col-md-12">
               <h1 className="dispaly-4">Dashboard</h1>
-              {profile === null || loading ? <Spinner/> :
-                Object.keys(profile).length > 0 ? renderDashboardContent() : renderEmptyProfileContent()}
+              {profile === null || loading
+                ? <Spinner/>
+                : Object.keys(profile).length > 0
+                  ? renderDashboardContent(profile)
+                  : renderEmptyProfileContent()}
             </div>
           </div>
         </div>
