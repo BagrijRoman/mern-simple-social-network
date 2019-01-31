@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import {} from 'ramda';
 
 import { addExperience } from '../../actions/profileActions';
 import TextFieldGroup from '../common/TextFieldGroup';
